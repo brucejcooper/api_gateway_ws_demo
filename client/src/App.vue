@@ -89,7 +89,6 @@ export default {
   },
 
   created: function() {
-    console.log("This data is ", this);
     // TODO update the URL here with the real URL of your application
     let socket = new WebSocket('wss://0l92lqq3v7.execute-api.ap-southeast-2.amazonaws.com/devo');
     
