@@ -90,7 +90,9 @@ export default {
 
   created: function() {
     console.log("This data is ", this);
-    let socket = new WebSocket('wss://9kmmj8ds4a.execute-api.ap-southeast-2.amazonaws.com/devo');
+    // TODO update the URL here with the real URL of your application
+    let socket = new WebSocket('wss://0l92lqq3v7.execute-api.ap-southeast-2.amazonaws.com/devo');
+    
     this.socket = socket;
     let vueobj = this;
     console.log(vueobj);

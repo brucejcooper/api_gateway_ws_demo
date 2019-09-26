@@ -93,9 +93,14 @@ class AwsStack extends cdk.Stack {
     // Give the Routes permission to call the lambda
     // TODO this has a reference to the CFN source.  Replace with CFN entry.
     routeNames.forEach((routeName, index) => 
-      handler.addPermission(`InvokePermission${index}`, {
-        principal: new iam.ServicePrincipal("apigateway.amazonaws.com"),
-        sourceArn: `arn:aws:execute-api:${this.region}:${this.account}:0l92lqq3v7/*/${routeName}`
+      new cdk.CfnResource(this, `InvokePermission${index}`, {
+        type: "AWS::Lambda::Permission",
+        properties: {
+          Action: "lambda:InvokeFunction",
+          FunctionName: handler.functionArn,
+          Principal: "apigateway.amazonaws.com",
+          SourceArn: { "Fn::Join": [ "", ['arn:aws:execute-api:', this.region, ":", this.account, ":", { Ref: api.logicalId}, `/*/${routeName}`]]}
+        }
       })
     );
 
