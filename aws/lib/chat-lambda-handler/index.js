@@ -58,8 +58,7 @@ exports.handler = async (event) => {
     console.log("Received event", event);
     console.log(`Its routed to ${event.requestContext.routeKey} on connection ${connectionId}`);
 
-    var connections;
-    var body = undefined;
+    var return_body = undefined;
     switch (event.requestContext.routeKey) {
         case '$connect':
             await addConnectionId(connectionId);
@@ -68,12 +67,12 @@ exports.handler = async (event) => {
             await removeConnectionId(connectionId);
             break;
         case 'personListReq':
-            connections = await getConnections();
-            body = JSON.stringify({"type": "participants", "connectionId": connectionId, participants: connections.map((conn) => conn.connectionId)}) ;
+            var connections = await getConnections();
+            return_body = JSON.stringify({"type": "participants", "connectionId": connectionId, participants: connections.map((conn) => conn.connectionId)}) ;
             break;
         case '$default':
             let message = event.body;
-            connections = await getConnections();
+            var connections = await getConnections();
             await Promise.all(connections.map((conn) => send(apigwManagementApi, conn.connectionId, connectionId, message)));
             break;
     }

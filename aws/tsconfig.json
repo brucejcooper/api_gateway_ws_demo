@@ -22,7 +22,7 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "noEmit": true
   }
 }
