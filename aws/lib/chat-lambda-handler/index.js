@@ -78,6 +78,6 @@ exports.handler = async (event) => {
     }
     return {
         statusCode: 200,
-        body: body
+        body: return_body
     };
 };
